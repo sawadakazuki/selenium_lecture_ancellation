@@ -121,7 +121,6 @@ try:
     # login twitter
     print(driver.get("https://mobile.twitter.com/home"))
     driver.get("https://mobile.twitter.com/home")
-    driver.save_screenshot("test.png")
     driver.implicitly_wait(3)
     # login
     print("start log into twitter")
