@@ -1,6 +1,12 @@
-
+import chromedriver_binary
+from selenium import webdriver
+import datetime
+import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
+
+options.add_argument('--headless')
+options.add_argument('user-agent=Chrome/68.0.3440.84')
 # 背面で動かすとき
 # options.add_argument('--headless')
 

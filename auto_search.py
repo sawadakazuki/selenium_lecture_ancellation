@@ -10,7 +10,7 @@ import os
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
 options.add_argument('--headless')
-
+options.add_argument('user-agent=Chrome/68.0.3440.84')
 # Selenium Server に接続する
 # driver = webdriver.Remote(
 #     command_executor='http://localhost:4444/wd/hub',
@@ -113,19 +113,24 @@ png = driver.find_element_by_id("main-frame").screenshot_as_png
 # 画像を保存
 with open(f'img/{today}.png', 'wb') as f:
     f.write(png)
+print("captured")
 
-driver = webdriver.Chrome()
 
 try:
-
+    print("access to twitter")
     # login twitter
+    print(driver.get("https://mobile.twitter.com/home"))
     driver.get("https://mobile.twitter.com/home")
+    driver.save_screenshot("test.png")
     driver.implicitly_wait(3)
     # login
+    print("start log into twitter")
     user_name_input=driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[1]/label/div/div[2]/div/input")
+    print(user_name_input)
     user_name_input.send_keys("@hitCanceledInfo")
 
     user_pass_input =driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[2]/label/div/div[2]/div/input")
+    print(user_pass_input)
     user_pass_input.send_keys("Kazuking2840!")
 
     driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[3]/div/div/span/span").click()
