@@ -158,6 +158,7 @@ try:
     twitter_button.click()
     driver.implicitly_wait(20)
 except Exception as e:
+    print(e.with_traceback())
     print("[ERROR] Twitterの投稿に失敗")
 
 print(driver.find_elements_by_class_name("css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"))
