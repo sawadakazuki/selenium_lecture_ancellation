@@ -124,6 +124,7 @@ try:
     driver.implicitly_wait(3)
     # login
     print("start log into twitter")
+    time.sleep(10)
     driver.save_screenshot('img/logincheck.png')
     driver.implicitly_wait(4)
     user_name_input=driver.find_element_by_name("session[username_or_email]")
@@ -165,10 +166,6 @@ except Exception as e:
     input_field.send_keys(str(today))
     driver.implicitly_wait(5)
     file_path = os.path.abspath("img/" + str(today)+".png")
-    print(file_path)
-    print(driver.find_element_by_xpath('//input[@type="file"]'))
-
-    driver.find_element_by_xpath('//input[@type="file"]').send_keys(file_path)
     driver.implicitly_wait(10)
     twitter_button = driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div/div/span/span")
     twitter_button.click()
