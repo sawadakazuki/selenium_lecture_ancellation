@@ -157,7 +157,7 @@ try:
     driver.implicitly_wait(5)
 except Exception as e:
     print(e)
-    print(e.with_traceback())
+    print(e.__context__)
     print("[ERROR] notranslate is nothing")
     driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
     driver.find_element_by_id("email_challenge_submit").click()
@@ -177,7 +177,7 @@ try:
     file_path = os.path.abspath("img/" + str(today)+".png")
     print(file_path)
     print(driver.find_element_by_xpath('//input[@type="file"]'))
-
+    driver.save_screenshot("img/sendImg.png")
     driver.find_element_by_xpath('//input[@type="file"]').send_keys(file_path)
     driver.implicitly_wait(10)
 
