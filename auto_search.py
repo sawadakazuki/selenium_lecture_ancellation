@@ -124,6 +124,7 @@ try:
     driver.implicitly_wait(3)
     # login
     print("start log into twitter")
+    driver.save_screenshot('img/logincheck.png')
     user_name_input=driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[1]/label/div/div[2]/div/input")
     print(user_name_input)
     user_name_input.send_keys("@hitCanceledInfo")
@@ -137,12 +138,42 @@ try:
     driver.implicitly_wait(10)
     print("logged in")
     print(today)
+except Exception as e:
+    print(e)
+    print(e.with_traceback())
+    print("[ERROR] Twitterのloginに失敗")
+try:
     # send string
-    driver.save_screenshot("/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/check_nontranslate.png")
+
+    driver.save_screenshot('img/nontranslate.png')
+    png2 = driver.find_element_by_class_name("notranslate").screenshot_as_png
+    with open(f'img/nontranslate_check.png', 'wb') as f:
+        f.write(png2)
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
     driver.implicitly_wait(5)
+except Exception as e:
+    driver.find_element_by_xpath('//input[@type="form"]').send_keys("1120120u@g.hit-u.ac.jp")
+    driver.find_element_by_name("送信").click()
+    driver.implicitly_wait(5)
+    print(e)
+    print(e.with_traceback())
+    print("[ERROR] notranslate is nothing")
+    input_field = driver.find_element_by_class_name("notranslate")
+    input_field.click()
+    input_field.send_keys(str(today))
+    driver.implicitly_wait(5)
+    file_path = os.path.abspath("img/" + str(today)+".png")
+    print(file_path)
+    print(driver.find_element_by_xpath('//input[@type="file"]'))
+
+    driver.find_element_by_xpath('//input[@type="file"]').send_keys(file_path)
+    driver.implicitly_wait(10)
+    twitter_button = driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div/div/span/span")
+    twitter_button.click()
+    driver.implicitly_wait(20)
+try:
 
     # send img
     file_path = os.path.abspath("img/" + str(today)+".png")
