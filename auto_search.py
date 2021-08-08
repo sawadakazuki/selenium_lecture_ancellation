@@ -9,7 +9,7 @@ import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
-options.add_argument('--headless')
+# options.add_argument('--headless')
 options.add_argument('user-agent=Chrome/68.0.3440.84')
 # Selenium Server に接続する
 # driver = webdriver.Remote(
@@ -134,7 +134,6 @@ try:
     user_pass_input.send_keys("Kazuking2840!")
 
     driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[3]/div/div/span/span").click()
-
     driver.implicitly_wait(10)
     print("logged in")
     print(today)
@@ -154,12 +153,12 @@ try:
     input_field.send_keys(str(today))
     driver.implicitly_wait(5)
 except Exception as e:
-    driver.find_element_by_xpath('//input[@type="form"]').send_keys("1120120u@g.hit-u.ac.jp")
-    driver.find_element_by_name("送信").click()
-    driver.implicitly_wait(5)
     print(e)
     print(e.with_traceback())
     print("[ERROR] notranslate is nothing")
+    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
+    driver.find_element_by_id("email_challenge_submit").click()
+    driver.implicitly_wait(5)
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
