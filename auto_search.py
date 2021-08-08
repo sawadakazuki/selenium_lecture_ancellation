@@ -9,7 +9,7 @@ import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
-# options.add_argument('--headless')
+options.add_argument('--headless')
 options.add_argument('user-agent=Chrome/68.0.3440.84')
 # Selenium Server に接続する
 # driver = webdriver.Remote(
