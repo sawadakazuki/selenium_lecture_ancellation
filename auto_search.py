@@ -125,11 +125,12 @@ try:
     # login
     print("start log into twitter")
     driver.save_screenshot('img/logincheck.png')
-    user_name_input=driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[1]/label/div/div[2]/div/input")
+    driver.implicitly_wait(4)
+    user_name_input=driver.find_element_by_name("session[username_or_email]")
     print(user_name_input)
     user_name_input.send_keys("@hitCanceledInfo")
 
-    user_pass_input =driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[2]/label/div/div[2]/div/input")
+    user_pass_input =driver.find_element_by_name("session[password]")
     print(user_pass_input)
     user_pass_input.send_keys("Kazuking2840!")
 
