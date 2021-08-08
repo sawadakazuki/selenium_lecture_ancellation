@@ -134,10 +134,11 @@ try:
 
     driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div[2]/form/div/div[3]/div/div/span/span").click()
 
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
     print("logged in")
     print(today)
     # send string
+    driver.save_screenshot("/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/check_nontranslate.png")
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
@@ -158,6 +159,7 @@ try:
     twitter_button.click()
     driver.implicitly_wait(20)
 except Exception as e:
+    print(e)
     print(e.with_traceback())
     print("[ERROR] Twitterの投稿に失敗")
 
