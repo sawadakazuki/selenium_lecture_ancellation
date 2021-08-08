@@ -147,6 +147,7 @@ try:
     # send string
 
     driver.save_screenshot('img/nontranslate.png')
+    driver.implicitly_wait(10)
     png2 = driver.find_element_by_class_name("notranslate").screenshot_as_png
     with open(f'img/nontranslate_check.png', 'wb') as f:
         f.write(png2)
