@@ -106,6 +106,8 @@ with open(f'img/{today}.png', 'wb') as f:
     f.write(png)
 print("captured")
 
+
+
 # Twitterへのアクセス開始
 
 try:
@@ -140,10 +142,13 @@ except Exception as e:
     print(e.with_traceback())
 try:
     # send string
+    errorpng = driver.find_element_by_id("react-root").screenshot_as_png
 
-    time.sleep(5)
-    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
-    driver.find_element_by_id("email_challenge_submit").click()
+# 画像を保存
+    with open('errorpng.png','wb') as f:
+        f.write(errorpng)
+    print("captured")
+    driver.save_screenshot('img/notranslate.png')
     driver.implicitly_wait(10)
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
@@ -152,7 +157,16 @@ try:
 except Exception as e:
 
     time.sleep(5)
-
+    # with open('error.png', 'wb') as f:
+    #     f.write()
+    print("captured")
+    print("[ERROR] notranslate is nothing")
+    print(e)
+    print(e.__context__)
+    time.sleep(5)
+    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
+    driver.find_element_by_id("email_challenge_submit").click()
+    driver.implicitly_wait(10)
 
     # ここで再びnotranslateにアクセス
 
