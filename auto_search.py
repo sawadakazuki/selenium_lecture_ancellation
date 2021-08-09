@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.select import Select
 import time
+# pythonでpathを通さずにselenium使用するのに必要↓
 import chromedriver_binary
 import datetime
 import os
@@ -10,13 +11,8 @@ import os
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
 options.add_argument('--headless')
-options.add_argument('user-agent=Chrome/68.0.3440.84')
-# Selenium Server に接続する
-# driver = webdriver.Remote(
-#     command_executor='http://localhost:4444/wd/hub',
-#     desired_capabilities=options.to_capabilities(),
-#     options=options,
-# )
+# user 認証に必要だった
+options.add_argument('user-agent=Chrome/92.0.4515.131')
 
 today = datetime.date.today()
 month = today.month
@@ -33,12 +29,10 @@ driver = webdriver.Chrome(options=options)
 
 # celsにログインする
 driver.get('https://cels.hit-u.ac.jp/campusweb')
-
 driver.implicitly_wait(20)
 
 # get URL
 login_url = driver.current_url
-
 print(login_url)
 
 # ログインしているかどうかを確認する
@@ -57,23 +51,20 @@ if login_url != "https://cels.hit-u.ac.jp/campusweb/campusportal.do?page=main":
     driver.find_element_by_id("loginButton_0").click()
 
 print("logged in")
-# driver.implicitly_wait(20)
 time.sleep(5)
+
 # 休講情報をクリック
+
 print(driver.find_element_by_link_text("休講補講参照"))
 driver.find_element_by_link_text("休講補講参照").click()
-
 print("休講情報")
 driver.implicitly_wait(20)
 iframe = driver.find_element_by_id("main-frame-if")
 driver.switch_to.frame(iframe)
-# 今日の日付を入力
-# print(driver.page_source)
-# print("month_select")
-# a = driver.find_element_by_id("main-portlet-title")
-# print(a)
-driver.implicitly_wait(20)
 
+# 今日の日付を入力
+
+driver.implicitly_wait(20)
 month_elem = driver.find_element_by_id("startDay_month")
 select_month = Select(month_elem)
 # driver.switch_to.default_content()
@@ -115,18 +106,21 @@ with open(f'img/{today}.png', 'wb') as f:
     f.write(png)
 print("captured")
 
+# Twitterへのアクセス開始
 
 try:
-    print("access to twitter")
+    print("start access to twitter")
     # login twitter
-    print(driver.get("https://mobile.twitter.com/home"))
+
     driver.get("https://mobile.twitter.com/home")
     driver.implicitly_wait(3)
     # login
     print("start log into twitter")
-    time.sleep(10)
+
     driver.save_screenshot('img/logincheck.png')
     driver.implicitly_wait(4)
+    time.sleep(5)
+    driver.save_screenshot('img/logincheck2.png')
     user_name_input=driver.find_element_by_name("session[username_or_email]")
     print(user_name_input)
     user_name_input.send_keys("@hitCanceledInfo")
@@ -139,49 +133,46 @@ try:
     driver.implicitly_wait(10)
     print("logged in")
     print(today)
+
 except Exception as e:
+    print("[ERROR] Twitterのloginに失敗")
     print(e)
     print(e.with_traceback())
-    print("[ERROR] Twitterのloginに失敗")
 try:
     # send string
 
-    driver.save_screenshot('img/nontranslate.png')
+    driver.save_screenshot('img/notranslate.png')
     driver.implicitly_wait(10)
-    png2 = driver.find_element_by_class_name("notranslate").screenshot_as_png
-    with open(f'img/nontranslate_check.png', 'wb') as f:
-        f.write(png2)
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
     driver.implicitly_wait(5)
 except Exception as e:
+
+    time.sleep(5)
+    driver.save_screenshot('img/notranslate_error.png')
+    print("[ERROR] notranslate is nothing")
     print(e)
     print(e.__context__)
-    print("[ERROR] notranslate is nothing")
     driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
     driver.find_element_by_id("email_challenge_submit").click()
-    driver.implicitly_wait(5)
+    driver.implicitly_wait(10)
+
+    # ここで再びnotranslateにアクセス
+
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
     driver.implicitly_wait(5)
-    file_path = os.path.abspath("img/" + str(today)+".png")
-    driver.implicitly_wait(10)
-    twitter_button = driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div/div/span/span")
-    twitter_button.click()
-    driver.implicitly_wait(20)
+
 try:
 
     # send img
     file_path = os.path.abspath("img/" + str(today)+".png")
     print(file_path)
     print(driver.find_element_by_xpath('//input[@type="file"]'))
-    driver.save_screenshot("img/sendImg.png")
     driver.find_element_by_xpath('//input[@type="file"]').send_keys(file_path)
     driver.implicitly_wait(10)
-
-    # //*[@id="react-root"]/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[1]/input
 
     # push tweet button
     twitter_button = driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div/div/span/span")
@@ -190,7 +181,7 @@ try:
 except Exception as e:
     print(e)
     print(e.with_traceback())
-    print("[ERROR] Twitterの投稿に失敗")
+    print("[ERROR] 画像の添付もしくは投稿に失敗")
 
 print(driver.find_elements_by_class_name("css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"))
 
