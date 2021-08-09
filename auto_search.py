@@ -51,7 +51,7 @@ if login_url != "https://cels.hit-u.ac.jp/campusweb/campusportal.do?page=main":
     driver.find_element_by_id("loginButton_0").click()
 
 print("logged in")
-time.sleep(5)
+driver.implicitly_wait(5)
 
 # 休講情報をクリック
 
@@ -150,7 +150,9 @@ try:
 except Exception as e:
 
     time.sleep(5)
-    driver.save_screenshot('notranslate_error.png')
+    with open('error.png', 'wb') as f:
+        f.write()
+    print("captured")
     print("[ERROR] notranslate is nothing")
     print(e)
     print(e.__context__)
