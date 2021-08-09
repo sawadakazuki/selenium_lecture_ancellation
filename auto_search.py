@@ -10,7 +10,7 @@ import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
-# options.add_argument('--headless')
+options.add_argument('--headless')
 # user 認証に必要だった
 options.add_argument('user-agent=Chrome/92.0.4515.131')
 
