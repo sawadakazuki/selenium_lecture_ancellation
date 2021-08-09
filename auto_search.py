@@ -145,10 +145,9 @@ try:
     errorpng = driver.find_element_by_id("react-root").screenshot_as_png
 
 # 画像を保存
-    with open('errorpng.png','wb') as f:
-        f.write(errorpng)
+
+    driver.save_screenshot('/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/errorpng.png')
     print("captured")
-    driver.save_screenshot('img/notranslate.png')
     driver.implicitly_wait(10)
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
