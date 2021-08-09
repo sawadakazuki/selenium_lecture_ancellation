@@ -148,7 +148,18 @@ try:
 
     driver.save_screenshot('/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/errorpng.png')
     print("captured")
+    # driver.implicitly_wait(10)
+    # input_field = driver.find_element_by_class_name("notranslate")
+    # input_field.click()
+    # input_field.send_keys(str(today))
+    # driver.implicitly_wait(5)
+    time.sleep(7)
+    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
+    driver.find_element_by_id("email_challenge_submit").click()
     driver.implicitly_wait(10)
+
+    # ここで再びnotranslateにアクセス
+
     input_field = driver.find_element_by_class_name("notranslate")
     input_field.click()
     input_field.send_keys(str(today))
