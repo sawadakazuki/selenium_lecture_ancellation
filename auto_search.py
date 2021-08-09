@@ -10,7 +10,7 @@ import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
-options.add_argument('--headless')
+# options.add_argument('--headless')
 # user 認証に必要だった
 options.add_argument('user-agent=Chrome/92.0.4515.131')
 
@@ -155,10 +155,6 @@ try:
     driver.implicitly_wait(5)
 except Exception as e:
 
-    time.sleep(5)
-    # with open('error.png', 'wb') as f:
-    #     f.write()
-    print("captured")
     print("[ERROR] notranslate is nothing")
     print(e)
     print(e.__context__)
