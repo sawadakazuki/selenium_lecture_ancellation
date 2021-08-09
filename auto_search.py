@@ -150,10 +150,11 @@ try:
 except Exception as e:
 
     time.sleep(5)
-    driver.save_screenshot('img/notranslate_error.png')
+    driver.save_screenshot('notranslate_error.png')
     print("[ERROR] notranslate is nothing")
     print(e)
     print(e.__context__)
+    time.sleep(5)
     driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
     driver.find_element_by_id("email_challenge_submit").click()
     driver.implicitly_wait(10)
