@@ -23,7 +23,7 @@ month = today.month
 day = today.day
 print(month,day)
 
-tomorrow = today + datetime.timedelta(days=35)
+tomorrow = today + datetime.timedelta(days=1)
 tomorrow_month =tomorrow.month
 tomorrow_day =tomorrow.day
 print(tomorrow_month,tomorrow_day)
