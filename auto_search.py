@@ -11,7 +11,10 @@ import os
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
 options.add_argument('--headless')
+
+# よく分からないけどcrashを防ぐためにいりそう
 options.add_argument('--no-sandbox')
+options.add_argument("--disable-dev-shm-usage")
 # user 認証に必要だった
 options.add_argument('user-agent=Chrome/92.0.4515.131')
 
