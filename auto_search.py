@@ -142,17 +142,18 @@ except Exception as e:
     print(e.with_traceback())
 try:
     # send string
-    errorpng = driver.find_element_by_id("react-root").screenshot_as_png
+    # errorpng = driver.find_element_by_id("react-root").screenshot_as_png
 
 # 画像を保存
 
-    driver.save_screenshot('/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/errorpng.png')
-    print("captured")
+    # driver.save_screenshot('/Users/Kazuki/develop/kazuki/selenium_lecture_cancellation/img/errorpng.png')
+    # print("captured")
     # driver.implicitly_wait(10)
     # input_field = driver.find_element_by_class_name("notranslate")
     # input_field.click()
     # input_field.send_keys(str(today))
     # driver.implicitly_wait(5)
+    print("email form?")
     time.sleep(7)
     email_form = driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
     email_form.send_keys("1120120u@g.hit-u.ac.jp")
