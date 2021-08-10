@@ -10,7 +10,7 @@ import os
 # Chrome のオプションを設定する
 options = webdriver.ChromeOptions()
 # 背面で動かすとき
-options.add_argument('--headless')
+# options.add_argument('--headless')
 # user 認証に必要だった
 options.add_argument('user-agent=Chrome/92.0.4515.131')
 
@@ -51,7 +51,7 @@ if login_url != "https://cels.hit-u.ac.jp/campusweb/campusportal.do?page=main":
     driver.find_element_by_id("loginButton_0").click()
 
 print("logged in")
-driver.implicitly_wait(5)
+time.sleep(5)
 
 # 休講情報をクリック
 
@@ -83,7 +83,7 @@ select_tomorrow_month.select_by_value(str(tomorrow_month))
 tomorrow_day_elem =driver.find_element_by_id("endDay_day")
 select_tomorrow_day = Select(tomorrow_day_elem)
 select_tomorrow_day.select_by_value(str(tomorrow_day))
-
+time.sleep(4)
 driver.find_element_by_id("Button").click()
 
 driver.implicitly_wait(20)
@@ -154,8 +154,12 @@ try:
     # input_field.send_keys(str(today))
     # driver.implicitly_wait(5)
     time.sleep(7)
-    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
-    driver.find_element_by_id("email_challenge_submit").click()
+    email_form = driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
+    email_form.send_keys("1120120u@g.hit-u.ac.jp")
+    time.sleep(3)
+    submit_button = driver.find_element_by_id("email_challenge_submit")
+    submit_button.click()
+    time.sleep(5)
     driver.implicitly_wait(10)
 
     # ここで再びnotranslateにアクセス
@@ -170,9 +174,6 @@ except Exception as e:
     print(e)
     print(e.__context__)
     time.sleep(5)
-    driver.find_element_by_id("challenge_response").send_keys("1120120u@g.hit-u.ac.jp")
-    driver.find_element_by_id("email_challenge_submit").click()
-    driver.implicitly_wait(10)
 
     # ここで再びnotranslateにアクセス
 
@@ -193,13 +194,14 @@ try:
     # push tweet button
     twitter_button = driver.find_element_by_xpath("/html/body/div/div/div/div[2]/main/div/div/div/div/div/div[2]/div/div[2]/div[1]/div/div/div/div[2]/div[3]/div/div/div[2]/div/div/span/span")
     twitter_button.click()
+    time.sleep(5)
+    print("click success")
     driver.implicitly_wait(20)
 except Exception as e:
     print(e)
     print(e.with_traceback())
     print("[ERROR] 画像の添付もしくは投稿に失敗")
 
-print(driver.find_elements_by_class_name("css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0"))
 
 # ブラウザを終了する
 driver.close()
